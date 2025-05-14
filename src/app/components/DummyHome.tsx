@@ -45,7 +45,7 @@ const Homecontent = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  const safeSelected = selected ?? "";
   return (
     <div className="home">
       <div className="top">
@@ -64,12 +64,16 @@ const Homecontent = () => {
               onClick={() => setShowFilter((prev) => !prev)}
             >
               <p>
-                {selected
+                {safeSelected
                   ? width > 600
                     ? `Filter: ${
-                        selected.charAt(0).toUpperCase() + selected.slice(1)
+                        safeSelected.charAt(0).toUpperCase() +
+                        safeSelected.slice(1)
                       }`
-                    : ` ${selected.charAt(0).toUpperCase() + selected.slice(1)}`
+                    : ` ${
+                        safeSelected.charAt(0).toUpperCase() +
+                        safeSelected.slice(1)
+                      }`
                   : width > 600
                   ? "Filter by status"
                   : "Filter"}
