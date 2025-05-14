@@ -63,7 +63,17 @@ const Homecontent = () => {
               className="filter"
               onClick={() => setShowFilter((prev) => !prev)}
             >
-              <p>{width > 600 ? `Filter by status` : "Filter"}</p>
+              <p>
+                {selected
+                  ? width > 600
+                    ? `Filter: ${
+                        selected.charAt(0).toUpperCase() + selected.slice(1)
+                      }`
+                    : ` ${selected.charAt(0).toUpperCase() + selected.slice(1)}`
+                  : width > 600
+                  ? "Filter by status"
+                  : "Filter"}
+              </p>
               <Image
                 src={"/assets/icon-arrow-down.svg"}
                 width={10}
