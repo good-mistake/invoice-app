@@ -2,6 +2,7 @@
   "name": "invoice-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -9,17 +10,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.7.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "framer-motion": "^12.9.1",
+    "jsonwebtoken": "^9.0.2",
+    "micro": "^10.0.1",
+    "mongoose": "^8.13.2",
+    "next": "15.3.1",
+    "nodemailer": "^6.10.1",
     "react": "^19.0.0",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.1"
+    "react-redux": "^9.2.0",
+    "react-select": "^5.10.1",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
+    "request-ip": "^3.3.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
-    "@eslint/eslintrc": "^3"
+    "typescript": "^5"
   }
 }

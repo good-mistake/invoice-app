@@ -1,0 +1,87 @@
+@import "./fonts.scss";
+@mixin Btn-1($w: 150px, $h: 48px, $bg: #7c5dfa, $hover: #9277ff, $c: #fff) {
+  width: $w;
+  @include Heading-S($line: 15px);
+  height: $h;
+  background-color: $bg;
+  color: $c;
+  border-radius: 24px;
+  border: none;
+  &:hover {
+    background-color: $hover;
+  }
+}
+@mixin Btn-3(
+  $w: 73px,
+  $h: 48px,
+  $bg: #7e88c3,
+  $hover: --btn-3-bg-hover,
+  $c: white
+) {
+  width: $w;
+  height: $h;
+  background-color: $bg;
+  color: $c;
+  border-radius: 24px;
+  border: none;
+  @include Heading-S(15px, 15px);
+  &:hover {
+    background-color: $hover;
+  }
+}
+@mixin Btn-4(
+  $w: 133px,
+  $h: 48px,
+  $bg: --btn-4-bg,
+  $hover: --btn-4-bg-hover,
+  $c: --btn-4-c
+) {
+  width: $w;
+  height: $h;
+  background-color: $bg;
+  color: $c;
+  border-radius: 24px;
+  border: none;
+  @include Heading-S(15px, 15px);
+  &:hover {
+    background-color: $hover;
+  }
+}
+@mixin Btn-5(
+  $w: 89px,
+  $h: 48px,
+  $bg: --btn-5-bg,
+  $hover: --btn-5-bg,
+  $c: --pure-white
+) {
+  width: $w;
+  height: $h;
+  background-color: $bg;
+  color: $c;
+  border-radius: 24px;
+  border: none;
+  @include Heading-S(15px, 15px);
+  &:hover {
+    background-color: $hover;
+  }
+}
+@mixin Btn-6(
+  $w: 350px,
+  $h: 48px,
+  $bg: --btn-6-bg,
+  $hover: --btn-6-bg-hover,
+  $c: --btn-6-c,
+  $c-hover: --btn-6-c-hover
+) {
+  width: $w;
+  height: $h;
+  background-color: $bg;
+  color: $c;
+  border-radius: 24px;
+  border: none;
+  @include Heading-S(15px, 15px);
+  &:hover {
+    background-color: $hover;
+    color: $c-hover;
+  }
+}

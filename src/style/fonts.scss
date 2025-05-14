@@ -1,0 +1,28 @@
+@mixin Heading-L($color: --color-Heading) {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 33px;
+  letter-spacing: -1;
+  color: $color;
+}
+@mixin Heading-M($color: --color-Heading) {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 22px;
+  letter-spacing: -0.75;
+  color: $color;
+}
+@mixin Heading-S($color: --color-Heading, $line: 15px) {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: $line;
+  letter-spacing: -0.25;
+  color: $color;
+}
+@mixin Body($color: --color-Heading, $line: 15px, $space: -0.1) {
+  font-weight: medium;
+  font-size: 13px;
+  line-height: $line;
+  letter-spacing: $space;
+  color: $color;
+}
