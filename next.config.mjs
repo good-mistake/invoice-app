@@ -1,11 +1,13 @@
-module.exports = {
+const nextConfig = {
   async redirects() {
     return [
       {
         source: "/",
         destination: "/home",
-        permanent: true,
+        permanent: false,
       },
     ];
   },
 };
+
+export default nextConfig;
