@@ -108,6 +108,7 @@ const CreateModal = () => {
       return { ...prev, items: updatedItems, total: updatedTotal };
     });
   };
+
   const validateForm = () => {
     const errors: string[] = [];
 
@@ -120,6 +121,16 @@ const CreateModal = () => {
       if (!emailRegex.test(formData.clientEmail)) {
         errors.push("Client email is invalid.");
       }
+    }
+
+    const postcodeRegex = /^\d+$/;
+
+    if (!postcodeRegex.test(formData.senderAddress.postCode)) {
+      errors.push("Sender postcode must be a number.");
+    }
+
+    if (!postcodeRegex.test(formData.clientAddress.postCode)) {
+      errors.push("Client postcode must be a number.");
     }
 
     formData.items.forEach((item, i) => {

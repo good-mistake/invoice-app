@@ -125,6 +125,16 @@ const EditModal = () => {
       }
     }
 
+    const postcodeRegex = /^\d+$/;
+
+    if (!postcodeRegex.test(formData.senderAddress.postCode)) {
+      errors.push("Sender postcode must be a number.");
+    }
+
+    if (!postcodeRegex.test(formData.clientAddress.postCode)) {
+      errors.push("Client postcode must be a number.");
+    }
+
     formData.items.forEach((item, i) => {
       if (!item.name?.trim()) errors.push(`Item ${i + 1} is missing a name.`);
       if (isNaN(item.quantity) || item.quantity <= 0)
