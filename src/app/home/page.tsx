@@ -6,10 +6,7 @@ import { useDispatch } from "react-redux";
 import { setInvoice } from "../redux/invoiceSlice";
 import { motion } from "framer-motion";
 
-const Home: React.FC<{
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-}> = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
