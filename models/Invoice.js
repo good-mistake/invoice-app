@@ -30,6 +30,7 @@ const invoiceSchema = new mongoose.Schema({
   isPublic: { type: Boolean, default: false },
   user: { type: mongoose.Schema.Types.ObjectId, refPath: "userType" },
   publicId: { type: String, required: false },
+  isSeed: { type: Boolean, default: false },
 });
 
 invoiceSchema.virtual("userType").get(function () {
