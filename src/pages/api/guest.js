@@ -10,17 +10,21 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      const clientIp = requestIp.getClientIp(req);
+      const clientIp = requestIp.getClientIp(req)?.trim();
       const { userAgent } = req.body;
+      const normalizedUserAgent = userAgent?.trim();
 
       let publicUserId;
-      let guest = await GuestUser.findOne({ userAgent, ip: clientIp });
+      let guest = await GuestUser.findOne({
+        userAgent: normalizedUserAgent,
+        ip: clientIp,
+      });
 
       if (!guest) {
         publicUserId = uuidv4();
         guest = await GuestUser.create({
           publicUserId,
-          userAgent,
+          userAgent: normalizedUserAgent,
           ip: clientIp,
           hasCopiedInvoices: false,
         });
