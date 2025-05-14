@@ -10,26 +10,18 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      const clientIp = requestIp.getClientIp(req)?.trim();
+      const clientIp = requestIp.getClientIp(req);
       const { userAgent } = req.body;
-      const normalizedUserAgent = userAgent?.trim();
 
-      let publicUserId;
-      let guest = await GuestUser.findOne({
-        userAgent: normalizedUserAgent,
-        ip: clientIp,
-      });
+      let guest = await GuestUser.findOne({ userAgent, ip: clientIp });
 
       if (!guest) {
-        publicUserId = uuidv4();
         guest = await GuestUser.create({
-          publicUserId,
-          userAgent: normalizedUserAgent,
+          publicUserId: uuidv4(),
+          userAgent,
           ip: clientIp,
           hasCopiedInvoices: false,
         });
-      } else {
-        publicUserId = guest.publicUserId;
       }
 
       if (!guest.hasCopiedInvoices) {
@@ -43,6 +35,7 @@ export default async function handler(req, res) {
           _id: new mongoose.Types.ObjectId(),
           user: guest._id,
           isPublic: true,
+          isSeed: false,
           publicId: `${invoice.id}-${uuidv4()}`,
         }));
 
@@ -56,7 +49,7 @@ export default async function handler(req, res) {
         });
       }
 
-      return res.status(200).json({ publicUserId });
+      return res.status(200).json({ publicUserId: guest.publicUserId });
     } catch (err) {
       console.error("Guest API Error:", err);
       return res.status(500).json({ error: "Server error" });
