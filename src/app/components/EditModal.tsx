@@ -110,11 +110,44 @@ const EditModal = () => {
       return { ...prev, items: updatedItems, total: updatedTotal };
     });
   };
+
+  const validateForm = () => {
+    const errors: string[] = [];
+
+    if (!formData.clientName.trim()) errors.push("Client name is required.");
+
+    if (!formData.clientEmail.trim()) {
+      errors.push("Client email is required.");
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.clientEmail)) {
+        errors.push("Client email is invalid.");
+      }
+    }
+
+    formData.items.forEach((item, i) => {
+      if (!item.name?.trim()) errors.push(`Item ${i + 1} is missing a name.`);
+      if (isNaN(item.quantity) || item.quantity <= 0)
+        errors.push(`Item ${i + 1} has invalid quantity.`);
+      if (isNaN(item.price) || item.price < 0)
+        errors.push(`Item ${i + 1} has invalid price.`);
+    });
+
+    return errors;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setError(""));
     dispatch(setSuccess(false));
     dispatch(setLoading(true));
+
+    const validationErrors = validateForm();
+    if (validationErrors.length > 0) {
+      dispatch(setError(validationErrors[0]));
+      dispatch(setLoading(false));
+      return;
+    }
 
     const token = localStorage.getItem("token");
     const publicUserId = localStorage.getItem("publicUserId");

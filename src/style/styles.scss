@@ -173,12 +173,14 @@ body {
                 @include Btn-3($w: 115px);
                 background-color: inherit;
                 align-items: center;
+                p {
+                  color: var(--btn-4-c);
+                }
                 @media (max-width: 600px) {
                   width: 54px;
                   justify-content: right;
                   p {
                     margin-right: 10px;
-                    color: var(--btn-4-c);
                   }
                 }
               }
