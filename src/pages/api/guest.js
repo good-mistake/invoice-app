@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       if (!guest.hasCopiedInvoices) {
         const publicInvoices = await Invoice.find({
           isPublic: true,
-          $or: [{ user: { $exists: false } }, { user: null }],
+          isSeed: true,
         });
 
         const userInvoices = publicInvoices.map((invoice) => ({
