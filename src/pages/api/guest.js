@@ -10,21 +10,28 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
+      await connectDB();
       const clientIp = requestIp.getClientIp(req);
-      const { userAgent } = req.body;
+      const { userAgent, storedPublicId } = req.body;
 
-      let guest = await GuestUser.findOne({ userAgent, ip: clientIp });
+      let guest;
 
+      // 1. If there's a storedPublicId (from localStorage), try to find the guest
+      if (storedPublicId) {
+        guest = await GuestUser.findOne({ publicUserId: storedPublicId });
+      }
+
+      // 2. If no guest found, create a new one
       if (!guest) {
+        const publicUserId = uuidv4();
         guest = await GuestUser.create({
-          publicUserId: uuidv4(),
+          publicUserId,
           userAgent,
           ip: clientIp,
           hasCopiedInvoices: false,
         });
-      }
 
-      if (!guest.hasCopiedInvoices) {
+        // Copy seed invoices
         const publicInvoices = await Invoice.find({
           isPublic: true,
           isSeed: true,
@@ -35,7 +42,6 @@ export default async function handler(req, res) {
           _id: new mongoose.Types.ObjectId(),
           user: guest._id,
           isPublic: true,
-          isSeed: false,
           publicId: `${invoice.id}-${uuidv4()}`,
         }));
 
@@ -47,8 +53,11 @@ export default async function handler(req, res) {
             hasCopiedInvoices: true,
           },
         });
+
+        return res.status(200).json({ publicUserId });
       }
 
+      // If guest already exists and hasCopiedInvoices is true, just return it
       return res.status(200).json({ publicUserId: guest.publicUserId });
     } catch (err) {
       console.error("Guest API Error:", err);
