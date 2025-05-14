@@ -10,28 +10,34 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      await connectDB();
       const clientIp = requestIp.getClientIp(req);
-      const { userAgent, storedPublicId } = req.body;
+      const { userAgent, publicId } = req.body;
 
       let guest;
 
-      // 1. If there's a storedPublicId (from localStorage), try to find the guest
-      if (storedPublicId) {
-        guest = await GuestUser.findOne({ publicUserId: storedPublicId });
-      }
-
-      // 2. If no guest found, create a new one
-      if (!guest) {
-        const publicUserId = uuidv4();
+      if (!publicId) {
+        // No publicId sent → create new guest
         guest = await GuestUser.create({
-          publicUserId,
+          publicUserId: uuidv4(),
           userAgent,
           ip: clientIp,
           hasCopiedInvoices: false,
         });
+      } else {
+        guest = await GuestUser.findOne({ publicUserId: publicId });
 
-        // Copy seed invoices
+        // If publicId is invalid or not found → create new guest
+        if (!guest) {
+          guest = await GuestUser.create({
+            publicUserId: uuidv4(),
+            userAgent,
+            ip: clientIp,
+            hasCopiedInvoices: false,
+          });
+        }
+      }
+
+      if (!guest.hasCopiedInvoices) {
         const publicInvoices = await Invoice.find({
           isPublic: true,
           isSeed: true,
@@ -42,6 +48,7 @@ export default async function handler(req, res) {
           _id: new mongoose.Types.ObjectId(),
           user: guest._id,
           isPublic: true,
+          isSeed: false,
           publicId: `${invoice.id}-${uuidv4()}`,
         }));
 
@@ -53,11 +60,8 @@ export default async function handler(req, res) {
             hasCopiedInvoices: true,
           },
         });
-
-        return res.status(200).json({ publicUserId });
       }
 
-      // If guest already exists and hasCopiedInvoices is true, just return it
       return res.status(200).json({ publicUserId: guest.publicUserId });
     } catch (err) {
       console.error("Guest API Error:", err);
