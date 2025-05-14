@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setLoading, setError, setSuccess } from "@/app/redux/userSlice";
-
+import Image from "next/image";
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const error = useSelector((state: RootState) => state.user.error);
@@ -71,64 +71,75 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <div className="login">
-      <h1>Forgot Password</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
+    <>
+      <div onClick={() => route.push("/home")} className="goBackBtn">
+        <Image
+          width={9}
+          height={9}
+          src={"/assets/icon-arrow-left.svg"}
+          alt="arrow"
         />
+        <p>Go back</p>
+      </div>{" "}
+      <div className="login">
+        <h1>Forgot Password</h1>
+        <form action="" onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? (
-            <motion.span
-              key="loading"
-              className="loading"
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <motion.span
+                key="loading"
+                className="loading"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                Submitting...
+              </motion.span>
+            ) : (
+              "Submit"
+            )}
+          </button>
+        </form>
+        <AnimatePresence>
+          {error && (
+            <motion.p
+              key="error"
+              className="error"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}
             >
-              Submitting...
-            </motion.span>
-          ) : (
-            "Submit"
+              {error}
+            </motion.p>
           )}
-        </button>
-      </form>
-      <AnimatePresence>
-        {error && (
-          <motion.p
-            key="error"
-            className="error"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            {error}
-          </motion.p>
-        )}
-        {success && (
-          <motion.div
-            key="success"
-            className="success"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            check your email. Redirecting...
-          </motion.div>
-        )}{" "}
-      </AnimatePresence>
-      <div className="createAcc">
-        <p>
-          Don&apos;t have an account?{" "}
-          <button onClick={() => route.push("/signup")}>Create one</button>
-        </p>
+          {success && (
+            <motion.div
+              key="success"
+              className="success"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              check your email. Redirecting...
+            </motion.div>
+          )}{" "}
+        </AnimatePresence>
+        <div className="createAcc">
+          <p>
+            Don&apos;t have an account?{" "}
+            <button onClick={() => route.push("/signup")}>Create one</button>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

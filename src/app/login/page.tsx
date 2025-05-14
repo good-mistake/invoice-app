@@ -11,6 +11,7 @@ import {
   setSuccess,
   setUser,
 } from "@/app/redux/userSlice";
+import Image from "next/image";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,44 +80,68 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login">
-      <h1>Login</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
+    <>
+      <div onClick={() => route.push("/home")} className="goBackBtn">
+        <Image
+          width={9}
+          height={9}
+          src={"/assets/icon-arrow-left.svg"}
+          alt="arrow"
         />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? (
-            <motion.span
-              key="loading"
-              className="loading"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              Login in...
-            </motion.span>
+        <p>Go back</p>
+      </div>{" "}
+      <div className="login">
+        <h1>Login</h1>
+        <form action="" onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <motion.span
+                key="loading"
+                className="loading"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                Login in...
+              </motion.span>
+            ) : (
+              "Login"
+            )}
+          </button>
+        </form>
+        <AnimatePresence>
+          {error &&
+          (error.toLowerCase().includes("password") ||
+            error.toLowerCase().includes("invalid")) ? (
+            <div className="forgotPassword">
+              <motion.p
+                key="error"
+                className="error"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                {error}
+              </motion.p>
+              <button onClick={() => route.push("/forgot-password")}>
+                Forgot Password?
+              </button>
+            </div>
           ) : (
-            "Login"
-          )}
-        </button>
-      </form>
-      <AnimatePresence>
-        {error &&
-        (error.toLowerCase().includes("password") ||
-          error.toLowerCase().includes("invalid")) ? (
-          <div className="forgotPassword">
             <motion.p
               key="error"
               className="error"
@@ -126,40 +151,27 @@ const LoginPage = () => {
             >
               {error}
             </motion.p>
-            <button onClick={() => route.push("/forgot-password")}>
-              Forgot Password?
-            </button>
-          </div>
-        ) : (
-          <motion.p
-            key="error"
-            className="error"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            {error}
-          </motion.p>
-        )}
-        {success && (
-          <motion.div
-            key="success"
-            className="success"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            Login successful. Redirecting...
-          </motion.div>
-        )}{" "}
-      </AnimatePresence>
-      <div className="createAcc">
-        <p>
-          Don&apos;t have an account?{" "}
-          <button onClick={() => route.push("/signup")}>Create one</button>
-        </p>
+          )}
+          {success && (
+            <motion.div
+              key="success"
+              className="success"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              Login successful. Redirecting...
+            </motion.div>
+          )}{" "}
+        </AnimatePresence>
+        <div className="createAcc">
+          <p>
+            Don&apos;t have an account?{" "}
+            <button onClick={() => route.push("/signup")}>Create one</button>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
