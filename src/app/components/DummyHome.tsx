@@ -70,7 +70,7 @@ const Homecontent = () => {
               <p>
                 {safeSelected
                   ? width > 600
-                    ? `Show ${
+                    ? `Filter by ${
                         safeSelected.charAt(0).toUpperCase() +
                         safeSelected.slice(1)
                       }`
