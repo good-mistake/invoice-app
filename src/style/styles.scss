@@ -75,6 +75,10 @@ body {
       max-width: 40%;
       margin: 2% auto 0;
       align-items: center;
+      p {
+        margin-top: 3px;
+        margin-left: 10px;
+      }
     }
     .login {
       background-color: var(--bg-content);
