@@ -133,7 +133,7 @@ const Homecontent = () => {
               alt="empty"
             />
             <h2>No invoices match this filter</h2>
-            <p>Try a different status or create a new invoice.</p>
+            <p>Try a different status or create a new invoice.</p>{" "}
           </div>
         ) : (
           filteredList?.map((i) =>

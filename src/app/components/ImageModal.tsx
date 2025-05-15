@@ -86,11 +86,11 @@ const ImageModal = () => {
       <Sidebar />
       <div className="showModal">
         <input type="file" onChange={handleChange} />
-        <AnimatePresence>
-          <button onClick={handleUploadImg} disabled={loading}>
+        <button onClick={handleUploadImg} disabled={loading}>
+          <AnimatePresence mode="wait">
             {loading ? (
               <motion.span
-                key="loading"
+                key="uploading"
                 className="loading"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -99,19 +99,27 @@ const ImageModal = () => {
                 Uploading...
               </motion.span>
             ) : (
-              "Upload"
+              <motion.span
+                key="upload"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                Upload
+              </motion.span>
             )}
-          </button>
-          <div onClick={() => dispatch(resetModal())} className="goBackBtn">
-            <Image
-              width={9}
-              height={9}
-              src={"/assets/icon-arrow-left.svg"}
-              alt="arrow"
-            />
-            <p>Cancel</p>
-          </div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </button>
+
+        <div onClick={() => dispatch(resetModal())} className="goBackBtn">
+          <Image
+            width={9}
+            height={9}
+            src={"/assets/icon-arrow-left.svg"}
+            alt="arrow"
+          />
+          <p>Cancel</p>
+        </div>
         {error && <p className="error">{error}</p>}
         {success && <p className="success">Image uploaded successfully!</p>}
       </div>

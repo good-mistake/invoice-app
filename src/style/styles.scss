@@ -1244,21 +1244,36 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+        @media (max-width: 600px) {
+          padding: 1.8rem 0.4rem;
+        }
         > div {
           justify-content: space-between;
           display: flex;
           width: 90%;
           align-items: center;
+          @media (max-width: 600px) {
+            width: 100%;
+            flex-wrap: wrap;
+          }
+
           > div {
             justify-content: space-between;
             align-items: center;
             display: flex;
+
             button {
               @include Btn-4;
+              @media (max-width: 600px) {
+                width: 90px;
+                @include Body;
+              }
+
               &:first-child {
                 background-color: var(--bg-color-4);
                 color: var(--c-1);
                 margin-right: 10px;
+
                 &:hover {
                   opacity: 0.5;
                 }
@@ -1273,6 +1288,9 @@ body {
           width: 96 !important;
           &:hover {
             opacity: 0.5;
+          }
+          @media (max-width: 600px) {
+            width: 70 !important;
           }
         }
       }
