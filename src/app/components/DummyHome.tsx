@@ -45,7 +45,11 @@ const Homecontent = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const safeSelected = selected ?? "";
+  const safeSelected = selected
+    ? selected.toLowerCase() !== "no filter"
+      ? selected
+      : ""
+    : "";
   return (
     <div className="home">
       <div className="top">
@@ -66,7 +70,7 @@ const Homecontent = () => {
               <p>
                 {safeSelected
                   ? width > 600
-                    ? `Filter: ${
+                    ? `Show ${
                         safeSelected.charAt(0).toUpperCase() +
                         safeSelected.slice(1)
                       }`
