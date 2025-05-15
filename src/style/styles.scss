@@ -80,7 +80,7 @@ body {
         margin-left: 10px;
       }
       @media (max-width: 600px) {
-        width: 98%;
+        width: 96%;
         max-width: 100%;
         min-width: 95%;
         margin-top: 46px;
@@ -95,7 +95,7 @@ body {
       margin: 2% auto 0;
       @media (max-width: 600px) {
         padding: 1rem;
-        width: 98%;
+        width: 96%;
         max-width: 100%;
         min-width: 95%;
         margin-top: 26px;
@@ -103,6 +103,10 @@ body {
       h1 {
         @include Heading-L($color: var(--input-border));
         margin: 1rem 0;
+        @media (max-width: 600px) {
+          @include Heading-M;
+          color: var(--input-border);
+        }
       }
       form {
         display: flex;
