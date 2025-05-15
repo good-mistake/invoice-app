@@ -10,7 +10,8 @@ import {
   setPreview,
   setFile,
 } from "../redux/modalSlice";
-
+import Image from "next/image";
+import { resetModal } from "../redux/modalSlice";
 import { RootState } from "../redux/store";
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -101,6 +102,15 @@ const ImageModal = () => {
               "Upload"
             )}
           </button>
+          <div onClick={() => dispatch(resetModal())} className="goBackBtn">
+            <Image
+              width={9}
+              height={9}
+              src={"/assets/icon-arrow-left.svg"}
+              alt="arrow"
+            />
+            <p>Cancel</p>
+          </div>
         </AnimatePresence>
         {error && <p className="error">{error}</p>}
         {success && <p className="success">Image uploaded successfully!</p>}
