@@ -80,7 +80,7 @@ body {
         margin-left: 10px;
       }
       @media (max-width: 600px) {
-        width: 96%;
+        width: 95%;
         max-width: 100%;
         min-width: 95%;
         margin-top: 46px;
@@ -95,7 +95,7 @@ body {
       margin: 2% auto 0;
       @media (max-width: 600px) {
         padding: 1rem;
-        width: 96%;
+        width: 95%;
         max-width: 100%;
         min-width: 95%;
         margin-top: 26px;
@@ -115,6 +115,7 @@ body {
           cursor: pointer;
           margin-bottom: 6px;
           margin-top: 12px;
+          @include Body;
         }
         input {
           border: 1px solid var(--input-border);
