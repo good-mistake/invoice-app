@@ -72,7 +72,10 @@ const ResetPassword = () => {
 
   return (
     <>
-      <div onClick={() => route.push("/home")} className="goBackBtn">
+      <div
+        onClick={() => route.push("/home")}
+        className="goBackBtn backForLogin"
+      >
         <Image
           width={9}
           height={9}

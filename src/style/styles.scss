@@ -68,14 +68,21 @@ body {
 
   .content {
     min-height: 100vh;
-
+    .backForLogin {
+      display: flex;
+      justify-content: flex-start;
+      min-width: 360px;
+      max-width: 40%;
+      margin: 2% auto 0;
+      align-items: center;
+    }
     .login {
       background-color: var(--bg-content);
       padding: 1.5rem;
       border-radius: 20px;
       min-width: 360px;
       max-width: 40%;
-      margin: 5% auto;
+      margin: 2% auto 0;
       h1 {
         @include Heading-L($color: var(--input-border));
         margin: 1rem 0;
