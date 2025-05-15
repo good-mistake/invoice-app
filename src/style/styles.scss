@@ -170,7 +170,7 @@ body {
               .filter {
                 display: flex;
                 justify-content: space-between;
-                @include Btn-3($w: 115px);
+                @include Btn-3($w: 130px);
                 background-color: inherit;
                 align-items: center;
                 p {
